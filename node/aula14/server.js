@@ -1,15 +1,17 @@
+require('dotenv').config();
+
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 
-const connectionString = 'mongodb+srv://ruaad9253:ZtrYgo8qd3OWdw1C@cursojs01.cuhsd.mongodb.net/?retryWrites=true&w=majority&appName=cursojs01';
-
 // Conexão com o MongoDB
-mongoose.connect(connectionString, {
+mongoose.connect(process.env.CONNECTION_STRING, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-  .then(() => console.log('Conectado ao MongoDB com sucesso!'))
+  .then(() => {
+    app.emit('O app está pronto.');
+  })
   .catch((err) => console.error('Erro ao conectar ao MongoDB:', err));
 
 const routes = require('./routes');
@@ -40,7 +42,9 @@ app.set('view engine', 'ejs');
 app.use(middlewareGobal);
 app.use(routes);
 
-app.listen(3000, () => {
-  console.log('Acessar http://localhost:3000');
-  console.log('Servidor executando na porta 3000');
-});
+app.on('O app está pronto.', () => {
+  app.listen(3000, () => {
+    console.log('Acessar http://localhost:3000');
+    console.log('Servidor executando na porta 3000');
+  });
+})
