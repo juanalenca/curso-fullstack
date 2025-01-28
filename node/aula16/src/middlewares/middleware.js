@@ -1,8 +1,4 @@
-exports.middlewareGlobal = (req, res, next) => {
-    res.locals.umaVariavelLocal = 'Este é o valor da variável local.';
+exports.middlewareGobal = (req, res, next) => {
+    res.locals.oneGlobalVariable = 'variable local value'
     next();
-  };
-  
-  exports.outroMiddleware = (req, res, next) => {
-    next();
-  };
+}
