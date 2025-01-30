@@ -9,6 +9,8 @@ route.get('/index', homeController.index);
 
 // Rostas de login
 route.get('/login/index', loginController.index);
-route.get('/login/register', loginController.register);
+route.post('/login/register', loginController.register);
+route.post('/login/login', loginController.login);
+route.get('/login/logout', loginController.logout);
 
 module.exports = route;
